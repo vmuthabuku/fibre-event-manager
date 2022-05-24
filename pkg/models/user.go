@@ -1,18 +1,16 @@
 package models
 
 import (
-	"github.com/jinzhu/gorm"
+	"golang.org/x/crypto/bcrypt"
 )
-
-var db *gorm.DB
 
 type User struct {
 	Id           uint
 	FirstName    string
 	LastName     string
 	Email        string
-	Password     string
-	isAmbassador string
+	Password     []byte
+	IsAmbassador bool
 }
 
 // func init() {
@@ -20,3 +18,13 @@ type User struct {
 // 	db = config.GetDB()
 // 	db.AutoMigrate(User{})
 // }
+
+func (user *User) SetPassword(password string) {
+	hashPassword, _ := bcrypt.GenerateFromPassword([]byte(password), 12)
+	user.Password = hashPassword
+
+}
+
+func (user *User) ComparePassword(password string) error {
+	return bcrypt.CompareHashAndPassword(user.Password, []byte(password))
+}

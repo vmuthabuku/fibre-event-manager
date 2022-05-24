@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	db *gorm.DB
+	Db *gorm.DB
 )
 
 func Connect() {
@@ -17,11 +17,11 @@ func Connect() {
 	if err != nil {
 		panic(err)
 	}
-	db = d
+	Db = d
 }
 
 func AutoMigrate() {
-	db.AutoMigrate(models.User{})
+	Db.AutoMigrate(models.User{})
 }
 
 // func GetDB() *gorm.DB {
