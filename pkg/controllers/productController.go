@@ -39,3 +39,30 @@ func GetProduct(c *fiber.Ctx) error {
 
 	return c.JSON(product)
 }
+
+func UpdateProduct(c *fiber.Ctx) error {
+	id, _ := strconv.Atoi(c.Params("id"))
+
+	product := models.Product{}
+	product.Id = uint(id)
+
+	if err := c.BodyParser(&product); err != nil {
+		return err
+	}
+
+	config.Db.Model(&product).Updates(&product)
+
+	return c.JSON(product)
+}
+
+func DeleteProduct(c *fiber.Ctx) error {
+	id, _ := strconv.Atoi(c.Params("id"))
+
+	product := models.Product{}
+	product.Id = uint(id)
+
+	config.Db.Delete(&product)
+
+	return nil
+
+}

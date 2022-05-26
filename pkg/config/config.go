@@ -21,7 +21,7 @@ func Connect() {
 }
 
 func AutoMigrate() {
-	Db.AutoMigrate(models.User{}, models.Product{})
+	Db.AutoMigrate(models.User{}, models.Product{}, models.Link{}, models.Order{}, models.OrderItem{})
 }
 
 // func GetDB() *gorm.DB {
