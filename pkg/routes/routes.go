@@ -15,5 +15,11 @@ func Setup(app *fiber.App) {
 	adminAuthenticated := app.Use(middlewares.IsAuthenticated)
 	adminAuthenticated.Get("/api/admin/user", controllers.User)
 	adminAuthenticated.Post("/api/admin/login", controllers.Login)
+	adminAuthenticated.Put("/api/admin/info", controllers.UpdateUser)
+	adminAuthenticated.Put("/api/admin/password", controllers.UpdatePassword)
+	adminAuthenticated.Get("/api/admin/ambassadors", controllers.Ambassador)
+	adminAuthenticated.Get("/api/admin/products", controllers.Products)
+	adminAuthenticated.Post("/api/admin/products", controllers.CreateProducts)
+	adminAuthenticated.Get("/api/admin/products/:id", controllers.GetProduct)
 
 }
