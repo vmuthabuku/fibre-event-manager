@@ -117,6 +117,14 @@ func User(c *fiber.Ctx) error {
 
 	config.Db.Where("id = ?", id).First(&user)
 
+	if strings.Contains(c.Path(), "/api/ambassador") {
+		ambassador := models.Ambassador(user)
+		ambassador.CalculateRevenue(config.Db)
+
+		return c.JSON(ambassador)
+
+	}
+
 	return c.JSON(user)
 
 }
